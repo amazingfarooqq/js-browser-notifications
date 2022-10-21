@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body {
+            height: 100vh;
+            width: 100wh;
+            background-color: #4CAF50;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #notifybtn {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button id="notifybtn" style="background-color: rgba(0,0,255,.7);">Notify me</button>
+    </div>
+
+
+    <script>
+        const notificationBtn = document.querySelector("#notifybtn")
+
+        const requestPermission = () => {
+            if (!("Notification" in window))
+                throw new Error("Browser doesn't support Notification")
+
+            Notification.requestPermission().then(permission => {
+
+                let title = 'Test Title'
+                let body = 'This is test body'
+
+                const notication = new Notification(title, {
+                    body,
+                    icon: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT7IwqC7y28mPUsy7LSbUeZXtInWte94AJjw&usqp=CAU"
+                })
+            })
+            document.addEventListener('visibilitychange', () => {
+                if (document.visibilityState === 'visible') {
+                // The tab has become visible so clear the now-stale Notification.
+                n.close();
+                }
+            });
+        }
+
+        notificationBtn.addEventListener("click", requestPermission)
+    </script>
+</body>
+
+</html>
